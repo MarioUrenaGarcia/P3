@@ -90,23 +90,49 @@ extern int buscarCliente(tipoHoja *aux, int numCta)
 {
     int encontrado = 0;
 
-    if (aux != NULL)
+    while (aux != NULL && encontrado == 0)
     {
         if (numCta == aux->numCuenta)
         {
             encontrado = 1;
         }
+        else if (numCta < aux->numCuenta)
+        {
+            aux = aux->izq;
+        }
         else
         {
-            if (numCta < aux->numCuenta)
-            {
-                encontrado = buscarCliente(aux->izq, numCta);
-            }
-            else
-            {
-                encontrado = buscarCliente(aux->der, numCta);
-            }
+            aux = aux->der;
         }
     }
+
     return encontrado;
+}
+
+extern void actualizarCliente(tipoHoja **aux, int numCta, int pizzas, int tacos, float total)
+{
+    tipoHoja *temp;
+
+    temp = *aux;
+
+    while (temp != NULL)
+    {
+        if (numCta == temp->numCuenta)
+        {
+            temp->numTacos += tacos;
+            temp->numPizzas += pizzas;
+            temp->compraAcumulada += total;
+            break;
+        }
+        else if (numCta < temp->numCuenta)
+        {
+            temp = temp->izq;
+        }
+        else
+        {
+            temp = temp->der;
+        }
+    }
+
+    return;
 }

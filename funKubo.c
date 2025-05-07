@@ -10,7 +10,7 @@
 // Funciones del árbol binario ----------------------------------------------------------
 tipoHoja *insertarHoja(tipoHoja *pt, int numCta, char nombreCliente[], int pizzas, int tacos, float total);
 int buscarCliente(tipoHoja *aux, int numCta);
-
+void actualizarCliente(tipoHoja **aux, int numCta, int tacos, int pizzas, float total);
 // Funciones ----------------------------------------------------------------------------
 /**
  * @brief Función que busca un nodo en la lista doble usando el nombre del nodo.
@@ -542,7 +542,7 @@ extern void atenderCaja(nodoD **caja, tipoHoja **arbol)
         scanf("%d", &cantidad);
         if (cantidad > 0)
         {
-            pagar = cantidad * 25;
+            pagar = cantidad * 89;
             if (pagar <= clienteActual->monedero)
             {
                 clienteActual->monedero -= pagar;
@@ -596,11 +596,29 @@ extern void atenderCaja(nodoD **caja, tipoHoja **arbol)
             {
                 // Insertar el cliente en el árbol
                 printf("\nInsertando cliente en árbol");
-                *arbol = insertarHoja(*arbol, clienteActual->numCuenta, clienteActual->nombre, cantidad, cantidad, pagar);
+                if (strcmp(nodoCompra->terminal, "Pizzas") == 0)
+                {
+                    *arbol = insertarHoja(*arbol, clienteActual->numCuenta, clienteActual->nombre, cantidad, 0, pagar);
+                }
+                else if (strcmp(nodoCompra->terminal, "Tacos") == 0)
+                {
+                    *arbol = insertarHoja(*arbol, clienteActual->numCuenta, clienteActual->nombre, 0, cantidad, pagar);
+                }
                 printf(GREEN "\nCliente insertado en árbol" RESET);
             }
             else // Si el cliente ya existe en el árbol
             {
+                // Actualizar el cliente en el árbol
+                printf("\nActualizando cliente en árbol");
+                if (strcmp(nodoCompra->terminal, "Pizzas") == 0)
+                {
+                    actualizarCliente(arbol, clienteActual->numCuenta, cantidad, 0, pagar);
+                }
+                else if (strcmp(nodoCompra->terminal, "Tacos") == 0)
+                {
+                    actualizarCliente(arbol, clienteActual->numCuenta, 0, cantidad, pagar);
+                }
+                printf(GREEN "\nCliente actualizado en árbol" RESET);
             }
         }
         // Actualizar valores de terminal
