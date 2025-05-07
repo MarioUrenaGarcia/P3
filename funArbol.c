@@ -8,6 +8,17 @@
  */
 
 // Funciones ----------------------------------------------------------------------------
+
+/**
+*@brief Función que inserta un nuevo nodo en el árbol
+*@param pt puntero al nodo padre
+*@param numCta número de cuenta del cliente
+*@param nombreCliente nombre del cliente
+*@param pizzas cantidad de pizzas
+*@param tacos cantidad de tacos
+*@param total total de la compra
+*@return puntero al nodo insertado
+*/
 extern tipoHoja *insertarHoja(tipoHoja *pt, int numCta, char nombreCliente[], int pizzas, int tacos, float total)
 {
     tipoHoja *aux, *nuevo;
@@ -71,6 +82,11 @@ extern tipoHoja *insertarHoja(tipoHoja *pt, int numCta, char nombreCliente[], in
     return pt;
 }
 
+/**
+*@brief Función que imprime el árbol binario
+*@param aux puntero al nodo raiz del árbol
+*@return void
+*/
 extern void imprimirArb(tipoHoja *aux)
 {
     printf("\n");
@@ -86,6 +102,12 @@ extern void imprimirArb(tipoHoja *aux)
     return;
 }
 
+/**
+*@brief Función que busca un cliente en el árbol
+*@param aux puntero al nodo raiz del árbol
+*@param numCta número de cuenta del cliente
+*@return 1 si el cliente se encuentra en el árbol, 0 si no
+*/
 extern int buscarCliente(tipoHoja *aux, int numCta)
 {
     int encontrado = 0;
@@ -109,6 +131,15 @@ extern int buscarCliente(tipoHoja *aux, int numCta)
     return encontrado;
 }
 
+/**
+*@brief Función que actualiza un cliente en el árbol
+*@param aux puntero al nodo raiz del árbol
+*@param numCta número de cuenta del cliente
+*@param pizzas cantidad de pizzas
+*@param tacos cantidad de tacos
+*@param total total de la compra
+*@return void
+*/
 extern void actualizarCliente(tipoHoja **aux, int numCta, int pizzas, int tacos, float total)
 {
     tipoHoja *temp;
@@ -137,6 +168,12 @@ extern void actualizarCliente(tipoHoja **aux, int numCta, int pizzas, int tacos,
     return;
 }
 
+/**
+ * @brief Función que guarda un nodo del árbol binario en un archivo
+ * @param fp puntero al archivo
+ * @param aux puntero al nodo a guardar
+ * @return void
+ */
 void guardarNodo(FILE *fp, tipoHoja *aux)
 {
     if (aux != NULL)
@@ -148,6 +185,11 @@ void guardarNodo(FILE *fp, tipoHoja *aux)
     return;
 }
 
+/**
+ * @brief Función que guarda el árbol binario en un archivo
+ * @param aux puntero al nodo raiz del árbol
+ * @return void
+ */
 extern void guardarArbol(tipoHoja *aux)
 {
     FILE *fp;
@@ -165,6 +207,11 @@ extern void guardarArbol(tipoHoja *aux)
     return;
 }
 
+/**
+ * @brief Función que carga el árbol binario desde un archivo
+ * @param aux puntero al nodo raiz del árbol
+ * @return void
+ */
 extern void cargarArbol(tipoHoja **aux)
 {
     FILE *fp;
