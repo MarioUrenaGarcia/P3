@@ -1,0 +1,112 @@
+#include "defKubo.h"
+
+/**
+ * @file funArbol.c
+ * @brief Este es el archivo de funciones del árbol binario
+ * @date 03/05/2025
+ * @author Mario Ureña García, Ricardo Ponce de León Vargas y Emiliano Cisneros Cervantes
+ */
+
+// Funciones ----------------------------------------------------------------------------
+extern tipoHoja *insertarHoja(tipoHoja *pt, int numCta, char nombreCliente[], int pizzas, int tacos, float total)
+{
+    tipoHoja *aux, *nuevo;
+    int salir = 1;
+
+    aux = pt;
+
+    nuevo = (tipoHoja *)malloc(sizeof(tipoHoja));
+    if (nuevo == NULL)
+    {
+        printf("\nNo hay memoria disponible\n");
+        exit(1);
+    }
+
+    // Como es un cliente recién ingresado, se le asignan sus datos de la primera compra
+    nuevo->numCuenta = numCta;
+    strcpy(nuevo->nombre, nombreCliente);
+    nuevo->numTacos = tacos;
+    nuevo->numPizzas = pizzas;
+    nuevo->compraAcumulada = total;
+
+    nuevo->izq = NULL;
+    nuevo->der = NULL;
+
+    if (aux == NULL) // Árbol vacío
+    {
+        pt = nuevo;
+    }
+
+    while ((aux != NULL) && (salir != 0))
+    {
+        if (numCta > aux->numCuenta) // mover a la derecha
+        {
+            if (aux->der != NULL)
+            {
+                aux = aux->der;
+            }
+            else
+            {
+                aux->der = nuevo;
+                salir = 0;
+            }
+        }
+        if (numCta <= aux->numCuenta) // mover a la izquierda
+        {
+            if (aux->izq != NULL)
+            {
+                aux = aux->izq;
+            }
+            else
+            {
+                aux->izq = nuevo;
+                salir = 0;
+            }
+            if (numCta == aux->numCuenta)
+            {
+                salir = 0;
+            }
+        }
+    }
+    return pt;
+}
+
+extern void imprimirArb(tipoHoja *aux)
+{
+    printf("\n");
+    if (aux != NULL)
+    {
+        imprimirArb(aux->izq);
+        printf("\n\n");
+        printf(YELLOW "Cuenta:" RESET " %d\t" YELLOW "Nombre:" RESET " %s\n", aux->numCuenta, aux->nombre);
+        printf(YELLOW "Tacos:" RESET " %d\t" YELLOW "Pizzas:" RESET " %d\n", aux->numTacos, aux->numPizzas);
+        printf(YELLOW "Compra acumulada:" RESET " $%.2f\n", aux->compraAcumulada);
+        imprimirArb(aux->der);
+    }
+    return;
+}
+
+extern int buscarCliente(tipoHoja *aux, int numCta)
+{
+    int encontrado = 0;
+
+    if (aux != NULL)
+    {
+        if (numCta == aux->numCuenta)
+        {
+            encontrado = 1;
+        }
+        else
+        {
+            if (numCta < aux->numCuenta)
+            {
+                encontrado = buscarCliente(aux->izq, numCta);
+            }
+            else
+            {
+                encontrado = buscarCliente(aux->der, numCta);
+            }
+        }
+    }
+    return encontrado;
+}
