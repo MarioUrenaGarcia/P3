@@ -48,6 +48,8 @@ void crearArchivoClientes(char nombreArchivo[], nodoD *aux);
 nodoD *buscarNodo(nodoD *aux, char nombreCola[]);
 // Funciones del árbol binario ----------------------------------------------------------
 void imprimirArb(tipoHoja *aux);
+void guardarArbol(tipoHoja *aux);
+void cargarArbol(tipoHoja **aux);
 // Main ---------------------------------------------------------------------------------
 
 int main(int argc, char *argv[])
@@ -145,6 +147,18 @@ int main(int argc, char *argv[])
     }
     printf(GREEN "\n\nClientes cargados con éxito\n" RESET);
     fclose(fp);
+    presioneEnter();
+
+    // Cargar el árbol binario desde el archivo arbol.txt
+    cargarArbol(&raiz);
+    if (raiz == NULL)
+    {
+        printf(GREEN "\n\nEl árbol binario está vacío\n" RESET);
+    }
+    else
+    {
+        printf(GREEN "\n\nEl árbol binario se ha cargado con éxito\n" RESET);
+    }
     presioneEnter();
 
     // Imprimir menú de opciones de impresión/atención
@@ -295,6 +309,10 @@ int main(int argc, char *argv[])
     // Se crea el archivo de clientes restantes
     crearArchivoClientes("clientes.txt", inicio);
     printf(GREEN "\n\nLos clientes restantes se han almacenado en \"clientes.txt\"\n\n" RESET);
+
+    // Se guarda el árbol binario en un archivo
+    guardarArbol(raiz);
+    printf(GREEN "\n\nEl árbol binario se ha guardado en \"arbol.txt\"\n\n" RESET);
 
     // FINALIZACIÓN DEL PROGRAMA ---------------------------------------------------------
     printf("\n\n\tPrograma Finalizado con " GREEN "ÉXITO !!!" RESET "\n\n");

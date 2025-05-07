@@ -136,3 +136,54 @@ extern void actualizarCliente(tipoHoja **aux, int numCta, int pizzas, int tacos,
 
     return;
 }
+
+void guardarNodo(FILE *fp, tipoHoja *aux)
+{
+    if (aux != NULL)
+    {
+        fprintf(fp, "%d\t%s\t%d\t%d\t%.2f\n", aux->numCuenta, aux->nombre, aux->numPizzas, aux->numTacos, aux->compraAcumulada);
+        guardarNodo(fp, aux->izq);
+        guardarNodo(fp, aux->der);
+    }
+    return;
+}
+
+extern void guardarArbol(tipoHoja *aux)
+{
+    FILE *fp;
+    fp = fopen("arbol.txt", "w");
+
+    if (fp == NULL)
+    {
+        printf(RED "\nERROR: No se pudo abrir el archivo arbol.bin\n" RESET);
+        exit(1);
+    }
+
+    guardarNodo(fp, aux);
+    fclose(fp);
+
+    return;
+}
+
+extern void cargarArbol(tipoHoja **aux)
+{
+    FILE *fp;
+    int numCta, pizzas, tacos;
+    float total;
+    char nombreCliente[30];
+
+    fp = fopen("arbol.txt", "r");
+    if (fp == NULL)
+    {
+        printf(RED "\nERROR: No se pudo abrir el archivo arbol.bin\n" RESET);
+        exit(1);
+    }
+
+    while (fscanf(fp, "%d\t%s\t%d\t%d\t%f", &numCta, nombreCliente, &pizzas, &tacos, &total) == 5)
+    {
+        *aux = insertarHoja(*aux, numCta, nombreCliente, pizzas, tacos, total);
+    }
+    fclose(fp);
+
+    return;
+}

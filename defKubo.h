@@ -75,8 +75,8 @@ struct hoja
 {
     int numCuenta;          // Número de cuenta del cliente
     char nombre[30];        // Nombre del cliente
-    int numTacos;           // Total de tacos comprados históricamente
     int numPizzas;          // Total de pizzas compradas históricamente
+    int numTacos;           // Total de tacos comprados históricamente
     float compraAcumulada;  // Total gastado históricamente
     struct hoja *izq, *der; // Punteros a los hijos izquierdo y derecho
 };
