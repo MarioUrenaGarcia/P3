@@ -190,14 +190,14 @@ void guardarNodo(FILE *fp, tipoHoja *aux)
  * @param aux puntero al nodo raiz del árbol
  * @return void
  */
-extern void guardarArbol(tipoHoja *aux)
+extern void guardarArbol(tipoHoja *aux, char nombreArchivo[])
 {
     FILE *fp;
-    fp = fopen("arbol.txt", "w");
+    fp = fopen(nombreArchivo, "w");
 
     if (fp == NULL)
     {
-        printf(RED "\nERROR: No se pudo abrir el archivo arbol.bin\n" RESET);
+        printf(RED "\nERROR: No se pudo abrir el archivo arbol.txt\n" RESET);
         exit(1);
     }
 
@@ -207,7 +207,13 @@ extern void guardarArbol(tipoHoja *aux)
     return;
 }
 
-extern void cargarArbol(tipoHoja **aux)
+/**
+ * @brief Función que carga el árbol binario desde un archivo
+ * @param aux puntero al nodo raiz del árbol
+ * @param nombreArchivo nombre del archivo que contiene el árbol
+ * @return void
+ */
+extern void cargarArbol(tipoHoja **aux, char nombreArchivo[])
 {
     FILE *fp;
     int numCta, pizzas, tacos;

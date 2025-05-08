@@ -48,7 +48,7 @@ void crearArchivoClientes(char nombreArchivo[], nodoD *aux);
 nodoD *buscarNodo(nodoD *aux, char nombreCola[]);
 // Funciones del árbol binario ----------------------------------------------------------
 void imprimirArb(tipoHoja *aux);
-void guardarArbol(tipoHoja *aux);
+void guardarArbol(tipoHoja *aux, char nombreArchivo[]);
 void cargarArbol(tipoHoja **aux, char nombreArchivo[]);
 // Main ---------------------------------------------------------------------------------
 
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
     raiz = NULL;
 
     // Carga de datos desde el archivo de negocio
-    fp = fopen(argv[1], "r");
+    fp = fopen(argv[2], "r");
     if (fp == NULL)
     {
         printf(RED "\n\n\tError al abrir el archivo de negocio\n\n" RESET);
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
     presioneEnter();
 
     // Carga de datos desde el archivo de clientes a la terminal de la caja
-    fp = fopen(argv[2], "r");
+    fp = fopen(argv[1], "r");
     if (fp == NULL)
     {
         printf(RED "\n\n\tError al abrir el archivo de clientes\n\n" RESET);
@@ -311,7 +311,7 @@ int main(int argc, char *argv[])
     printf(GREEN "\n\nLos clientes restantes se han almacenado en \"clientes.txt\"\n\n" RESET);
 
     // Se guarda el árbol binario en un archivo
-    guardarArbol(raiz);
+    guardarArbol(raiz, argv[3]);
     printf(GREEN "\n\nEl árbol binario se ha guardado en \"arbol.txt\"\n\n" RESET);
 
     // FINALIZACIÓN DEL PROGRAMA ---------------------------------------------------------
