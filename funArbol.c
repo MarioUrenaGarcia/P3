@@ -165,14 +165,14 @@ extern void guardarArbol(tipoHoja *aux)
     return;
 }
 
-extern void cargarArbol(tipoHoja **aux)
+extern void cargarArbol(tipoHoja **aux, char nombreArchivo[])
 {
     FILE *fp;
     int numCta, pizzas, tacos;
     float total;
     char nombreCliente[30];
 
-    fp = fopen("arbol.txt", "r");
+    fp = fopen(nombreArchivo, "r");
     if (fp == NULL)
     {
         printf(RED "\nERROR: No se pudo abrir el archivo arbol.bin\n" RESET);

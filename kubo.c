@@ -49,7 +49,7 @@ nodoD *buscarNodo(nodoD *aux, char nombreCola[]);
 // Funciones del árbol binario ----------------------------------------------------------
 void imprimirArb(tipoHoja *aux);
 void guardarArbol(tipoHoja *aux);
-void cargarArbol(tipoHoja **aux);
+void cargarArbol(tipoHoja **aux, char nombreArchivo[]);
 // Main ---------------------------------------------------------------------------------
 
 int main(int argc, char *argv[])
@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
     presioneEnter();
 
     // Cargar el árbol binario desde el archivo arbol.txt
-    cargarArbol(&raiz);
+    cargarArbol(&raiz, argv[3]);
     if (raiz == NULL)
     {
         printf(GREEN "\n\nEl árbol binario está vacío\n" RESET);
