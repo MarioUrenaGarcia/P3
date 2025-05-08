@@ -223,8 +223,13 @@ extern void cargarArbol(tipoHoja **aux, char nombreArchivo[])
     fp = fopen(nombreArchivo, "r");
     if (fp == NULL)
     {
-        printf(RED "\nERROR: No se pudo abrir el archivo arbol.bin\n" RESET);
-        exit(1);
+        // Si no se puede abrir el archivo, se crea uno nuevo
+        fp = fopen(nombreArchivo, "w");
+        if (fp == NULL)
+        {
+            printf(RED "\nERROR: No se pudo crear el archivo arbol.txt\n" RESET);
+            exit(1);
+        }
     }
 
     while (fscanf(fp, "%d\t%s\t%d\t%d\t%f", &numCta, nombreCliente, &pizzas, &tacos, &total) == 5)
