@@ -312,7 +312,7 @@ int main(int argc, char *argv[])
 
     // Se guarda el árbol binario en un archivo
     guardarArbol(raiz, argv[3]);
-    printf(GREEN "\n\nEl árbol binario se ha guardado en \"arbol.txt\"\n\n" RESET);
+    printf(GREEN "\n\nEl árbol binario se ha guardado en \"%s\"\n\n" RESET, argv[3]);
 
     // FINALIZACIÓN DEL PROGRAMA ---------------------------------------------------------
     printf("\n\n\tPrograma Finalizado con " GREEN "ÉXITO !!!" RESET "\n\n");
